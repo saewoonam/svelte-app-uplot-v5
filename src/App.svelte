@@ -5,10 +5,11 @@
     // import MyCollapse from "./MyCollapse.svelte";
     import {merge_data} from "./merge.js";
     import Loader from "./Loader.svelte";
-    import {nipy_spectral}  from './js-colormaps-mod.js';
-    let colormap = nipy_spectral;
+    // import {nipy_spectral}  from './js-colormaps-mod.js';
+    // let colormap = nipy_spectral;
+    import {colormap} from "./colors.js";
     // calculate colors
-    var colors = []
+    var colors = colormap
     function componentToHex(c) {
       var hex = c.toString(16);
       return hex.length == 1 ? "0" + hex : hex;
@@ -16,6 +17,7 @@
     function rgbToHex(r, g, b) {
       return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
     }
+    /*
     for (let counter=0; counter<40; counter++) {
         let rgb = colormap(counter/40);
         //console.log('rgb', rgb);
@@ -23,7 +25,7 @@
         //console.log('hex', hex);
         colors.push(hex);
     }
-
+     */
     let data = [
         [1546300800, 1546387200],    // x-values (timestamps)
         [        35,         15],    // y-values (series 1)
@@ -109,7 +111,7 @@
         sensor_list = [...sensor_list, ...lockins_list];
         console.log('full sensor_list', sensor_list);
         let stop_ts = Math.floor(Date.now()/1000)
-        var start_ts = stop_ts - 10*24*60*60;
+        var start_ts = stop_ts - 24*60*60;
         //start_ts = 0
         var history_v2 = [];
         labels=['TIME'];        

@@ -187,6 +187,11 @@
         if (index>0) {
             opts.series[index].label = item; // offset index by 1, index 0: time
             opts.series[index].show = show[index];
+            if (item.endsWith('HEATER')) {
+                opts.series[index].fill = opts.series[index].stroke + '20'
+                console.log('item', item)
+                console.log(opts.series[index])
+            }
         }
     });
     console.log('opts', opts)
