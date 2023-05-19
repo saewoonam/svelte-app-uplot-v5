@@ -57,6 +57,7 @@
         max = max==null ? max : parseFloat(max);
         x_range = [min, max];
         console.log('returned x_range: ', x_range);
+        console.trace()
         return x_range
     }
     opts.scales.y.range = (self, min, max) => {
@@ -84,6 +85,7 @@
 
         } else y_range = [min, max];
         console.log('returned y_range: ', y_range);
+        console.trace()
         return y_range
     }
     /*
@@ -187,10 +189,10 @@
         if (index>0) {
             opts.series[index].label = item; // offset index by 1, index 0: time
             opts.series[index].show = show[index];
-            if (item.endsWith('HEATER')) {
+            if (item.includes('HEATER')) {
                 opts.series[index].fill = opts.series[index].stroke + '20'
-                console.log('item', item)
                 console.log(opts.series[index])
+                console.log('item', item)
             }
         }
     });
