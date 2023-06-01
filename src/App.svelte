@@ -61,7 +61,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3201';
+    let host = '132.163.53.82:3200';
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -88,7 +88,7 @@
         var loading_elt = document.getElementById('message'); 
         console.log(loading_elt);
 
-        var ky_test = await ky('http://132.163.53.82:3201/database/log.db/compressor_list').json()
+        var ky_test = await ky('http://132.163.53.82:3200/database/log.db/compressor_list').json()
         console.log(ky_test);
         loading_message = 'loading calibrations'
         cals = await load_calibrations(host);
@@ -226,7 +226,7 @@
         let bulk_data = [];
         let new_data = [];
         let bulk_url;
-        let url_prefix ='http://132.163.53.82:3201/database/log.db/'
+        let url_prefix ='http://132.163.53.82:3200/database/log.db/'
         let query = '';
         query = (stop===null) ?  `data?start=${start}`:`start=${start}&stop=${stop}`;
         bulk_url = url_prefix + query;
