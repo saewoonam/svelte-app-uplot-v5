@@ -17,6 +17,7 @@
     export let labels = ['y0', 'y1']
     export let show = [true, true]
     export let colors = ['red', 'blue'];
+    export let cursor_data = [];
     /*
     var colors = []
     function componentToHex(c) {
@@ -166,7 +167,14 @@
                 let xVal = u.posToVal(left, "x");
                 let yVal = u.posToVal(top, "y");
                 console.log('mousemove: xVal, yVal', xVal, yVal);
-                
+                console.log('uplot_v5.svelte: u.curosr', u.cursor); 
+                console.log('uplot_v5.svelte: u', u); 
+            } else {
+                console.log('no click on mouse move');
+                const { left, top } = u.cursor;
+                const idx = u.posToIdx(left);
+                cursor_data = u.data.map((element) => element[idx]);
+                console.log('u.posToIdx', idx, cursor_data);
             }
             handler(e)
         }

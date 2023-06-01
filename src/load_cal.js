@@ -119,7 +119,7 @@ export async function fetch_timeout(url, wait=3000) {
     return dd;
 }
 
-export async function fetch_ids(host, ids, html_elt, start_ts=0, stop_ts=0, wait=5000) {
+export async function fetch_ids(host, ids, html_elt, start_ts=0, stop_ts=0, wait=7500) {
     console.log('fetch_ids', host, ids, start_ts);
     var responses=[];
     for (const id of ids) {

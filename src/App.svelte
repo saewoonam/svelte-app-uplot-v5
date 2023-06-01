@@ -32,6 +32,7 @@
         [        90,         15],    // y-values (series 2)
     ];
     let count = 0;
+    let cursor_data = [];
     /*
     let data_ready = true;
     let table_data = [0, 1, 2];
@@ -60,7 +61,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3200';
+    let host = '132.163.53.82:3201';
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -69,7 +70,7 @@
     // let ids = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
     // let ids = [4, 5, 6, 7 ];
     // let ids = [4, 100, 200, 300, 301];
-    // let ids = [300, 301];
+    // ids = [300, 301];
     let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     // let ids = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     var cals;
@@ -87,7 +88,7 @@
         var loading_elt = document.getElementById('message'); 
         console.log(loading_elt);
 
-        var ky_test = await ky('http://132.163.53.82:3200/database/log.db/compressor_list').json()
+        var ky_test = await ky('http://132.163.53.82:3201/database/log.db/compressor_list').json()
         console.log(ky_test);
         loading_message = 'loading calibrations'
         cals = await load_calibrations(host);
@@ -111,7 +112,7 @@
         sensor_list = [...sensor_list, ...lockins_list];
         console.log('full sensor_list', sensor_list);
         let stop_ts = Math.floor(Date.now()/1000)
-        var start_ts = stop_ts - 24*60*60;
+        var start_ts = stop_ts - 7*24*60*60;
         //start_ts = 0
         var history_v2 = [];
         labels=['TIME'];        
@@ -204,12 +205,28 @@
             }
         }
     }
+    $: {
+        console.log('cursor_data', cursor_data);
+        if (cursor_data.length > 0) { 
+            table_data = cursor_data.map(
+                // (x,i)=>  (i>0) ? x[0].toFixed(2) : (new Date(x.toFixed(0)*1000)).toLocaleString()
+                (x,i)=>  (x == null) ? -1 : ((i>0) ? (Array.isArray(x) ?
+                    x[0].toFixed(2): x.toFixed(2)): (new Date(x.toFixed(0)*1000)).toLocaleString())
+            );
+            /*
+            table_data[0] = (new Date(cursor_data[0].toFixed(0)*1000)).toLocaleString()
+            for (let i=1; i<table_data.length; i++) {
+                table_data[i] = cursor_data[i];
+            }
+            */
+        }
+    }
     var appending = false;
     async function bulk_download(start, stop=null) {
         let bulk_data = [];
         let new_data = [];
         let bulk_url;
-        let url_prefix ='http://132.163.53.82:3200/database/log.db/'
+        let url_prefix ='http://132.163.53.82:3201/database/log.db/'
         let query = '';
         query = (stop===null) ?  `data?start=${start}`:`start=${start}&stop=${stop}`;
         bulk_url = url_prefix + query;
@@ -349,7 +366,7 @@
 
 <div class="body-text">
     {#if data_ready}
-        <Uplot data={data} labels={labels} show={show_curves} colors={colors}/>
+        <Uplot data={data} labels={labels} show={show_curves} colors={colors} bind:cursor_data={cursor_data} />
     {:else}
         <p id="message">{loading_message} </p>
         <Loader loading={!data_ready}/>
