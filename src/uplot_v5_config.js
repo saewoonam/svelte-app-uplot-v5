@@ -8,8 +8,8 @@ export let data_config = [
 	  let isXRangeFixed = false;
 export let opts_config = {
     title: "DR sensors",
-    width: 600,
-    height: 400,
+    width: 1080,
+    height: 720,
     legend: {
         show: false,
     },

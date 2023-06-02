@@ -25,7 +25,7 @@
         border: 1px solid;
     }
     table thead {border: 1px solid; display: block;}
-    table tbody {height: 1vw; overflow-y:scroll; display:block;}
+    table tbody {height: 90vh; overflow-y:scroll; display:block;}
 
 </style>
 {#if table_data.length>0}
