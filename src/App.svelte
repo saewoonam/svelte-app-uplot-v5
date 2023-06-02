@@ -61,7 +61,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3200';
+    let host = '132.163.53.82:3201';
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -87,8 +87,8 @@
     onMount( async() => {
         var loading_elt = document.getElementById('message'); 
         console.log(loading_elt);
-
-        var ky_test = await ky('http://132.163.53.82:3200/database/log.db/compressor_list').json()
+        console.log('loading sensor lists and calibrations') 
+        var ky_test = await ky('http://132.163.53.82:3201/database/log.db/compressor_list').json()
         console.log(ky_test);
         loading_message = 'loading calibrations'
         cals = await load_calibrations(host);
@@ -121,7 +121,7 @@
         var responses = await fetch_ids(host, ids, loading_elt, start_ts, stop_ts);
         loading_message = 'process json data'
         for (const response of responses) {
-            console.log('process response');
+            console.log('process response', response);
             /* 
             // Code to timeout if json conversion fails.
 
@@ -139,12 +139,13 @@
             // let sensor_data = (await response.json())['data'];
             
             var sensor_data = response['data'];
-            console.log('sensor_data length', sensor_data.length);
+            // console.log('sensor_data length', sensor_data.length);
             let id = sensor_data[0][1];
             loading_id = id;
             let sensor_info = sensor_list.find(elt => elt[0]==id);
-            console.log('find id',id, sensor_info[3]);
+            // console.log('found id',id, sensor_info[3]);
             labels.push(sensor_info[1]);
+            console.log('found id',id, sensor_info[1], sensor_info[3]);
             show_curves.push(true);
             // console.log(show_curves);
             var trace; 
@@ -169,7 +170,7 @@
                 // console.log('merge history_v2');
                 history_v2 = merge_data(history_v2, trace);
             }
-            console.log('end process response');
+            console.log('merging done for',id, sensor_info[1], sensor_info[3]);
         }
 
         plot_ids = [...labels];

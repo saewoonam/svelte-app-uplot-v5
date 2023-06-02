@@ -94,5 +94,12 @@ colors = ['#808080', '#5b8078', '#007e81', '#007a99', '#0073b8', '#0068d5',
     '#f69700', '#e88200', '#da6d00', '#ca5900', '#ba4500', '#a93001',
     '#971802', '#920f0c', '#a62e29', '#b84644', '#c95e60', '#d8767b',
     '#e68f96', '#f3a7b1']
+// https://pair-code.github.io/colormap/curves/?colors=5e00d1-9694ff-ffd696-ff704f-8b0000&numTicks=35&space=hsl&type=basis
+ colors = ['#5e00d1', '#5c00e7', '#5700fd', '#5613ff', '#5428ff', '#513bff',
+     '#4d4eff', '#5d75ff', '#6b9bff', '#77bfff', '#80e3ff', '#87fff9',
+     '#8cffd8', '#8fffb7', '#91ff96', '#abff90', '#c9ff8f', '#e5ff8c',
+     '#feff88', '#ffe983', '#ffd47d', '#ffc276', '#ffb06d', '#ff9f64',
+     '#ff8e59', '#ff7d4c', '#ff6c3e', '#ff592f', '#ff441d', '#ff2e0b',
+     '#f71c00', '#e21400', '#cd0e00', '#b70800', '#a10300']
 
 exports.colormap = colors
