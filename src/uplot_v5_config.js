@@ -11,7 +11,7 @@ export let opts_config = {
     width: 600,
     height: 400,
     legend: {
-        show: true,
+        show: false,
     },
     cursor: {
         y: true,

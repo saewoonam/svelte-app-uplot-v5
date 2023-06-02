@@ -11,6 +11,8 @@
         console.log('clicked on row', e.srcElement.parentElement.id);
         dispatch('click', {label: e.srcElement.parentElement.id});
     }
+    // table tbody {height:600px; overflow-y:scroll; display:block;} 
+
 </script>
 
 <style>
@@ -23,7 +25,7 @@
         border: 1px solid;
     }
     table thead {border: 1px solid; display: block;}
-    table tbody {height:600px; overflow-y:scroll; display:block;}
+    table tbody {height: 1vw; overflow-y:scroll; display:block;}
 
 </style>
 {#if table_data.length>0}
