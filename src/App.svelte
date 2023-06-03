@@ -331,7 +331,7 @@
 <style>
 
     .sidebar {
-        height: 90vh;
+        height: 90vw;
         width: 250px;
         position: fixed;
         top: 0;
