@@ -7,7 +7,7 @@
     import Loader from "./Loader.svelte";
     // import {nipy_spectral}  from './js-colormaps-mod.js';
     // let colormap = nipy_spectral;
-    import {colormap} from "./colors.js";
+    import {colors} from "./colors.js";
     // calculate colors
     let data = [
         [1546300800, 1546387200],    // x-values (timestamps)
@@ -51,10 +51,10 @@
     // let ids = [100];
     // let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
     // let ids = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
-    // let ids = [4, 5, 6, 7 ];
+    let ids = [4, 5, 6, 7 ];
     // let ids = [4, 100, 200, 300, 301];
     // let ids = [300, 301];
-    let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
+    // let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     // let ids = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     var cals;
     var diode_list, compressor_list, heaters_list, lockins_list, sensor_list;

@@ -150,4 +150,5 @@ colors = ['#ffd700', '#f2bb43', '#e39f5e', '#d38373', '#c16784', '#ac4994',
     '#a5d799', '#b7d6af', '#c8d4c5', '#d2c9c7', '#cdada5', '#c59184',
     '#bb7565', '#af5946', '#a13c29', '#91170c', '#980b18', '#ab1a34',
     '#bd2751', '#cf346f', '#df418e', '#f04eae']
-exports.colormap = colors
+
+exports.colors = colors
