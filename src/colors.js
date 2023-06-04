@@ -1,3 +1,37 @@
+/*
+ // colormap crap before using web tools
+    var colors = colormap
+    function componentToHex(c) {
+      var hex = c.toString(16);
+      return hex.length == 1 ? "0" + hex : hex;
+    }
+    function rgbToHex(r, g, b) {
+      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+    }
+    /*
+    for (let counter=0; counter<40; counter++) {
+        let rgb = colormap(counter/40);
+        //console.log('rgb', rgb);
+        let hex = rgbToHex(...rgb);
+        //console.log('hex', hex);
+        colors.push(hex);
+    }
+var colors = []
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
+}
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+for (let counter=0; counter<20; counter++) {
+    let rgb = tab20c(counter/20);
+    //console.log('rgb', rgb);
+    let hex = rgbToHex(...rgb);
+    //console.log('hex', hex);
+    colors.push(hex);
+}
+*/
 var colors;
 
 colors = [
@@ -108,4 +142,12 @@ colors = ['#ffd700', '#f0b647', '#df9565', '#cc737a', '#b6518d', '#9c289e',
     '#51d948', '#74d965', '#8ed880', '#a5d799', '#bad6b2', '#cdd4cb',
     '#d0bdb9', '#c89d92', '#be7d6d', '#b15d4a', '#a13c29', '#8e0f07',
     '#ab0c1f', '#d21c3f', '#fa2c61', '#ff3b84', '#ff4ba9']
+// https://pair-code.github.io/colormap/curves/?colors=ffd700-8100ac-9694ff-38d936-d3d3d3-8b0000-ff5bcf&numTicks=40&space=lab&type=linear
+colors = ['#ffd700', '#f2bb43', '#e39f5e', '#d38373', '#c16784', '#ac4994',
+    '#9428a3', '#8314b0', '#8732bc', '#8c47c8', '#8f5ad5', '#926ce1',
+    '#947dee', '#968efb', '#969ced', '#92a7d1', '#8cb2b6', '#81bc9a',
+    '#72c67d', '#5dd05e', '#38d936', '#5fd953', '#7bd96c', '#91d883',
+    '#a5d799', '#b7d6af', '#c8d4c5', '#d2c9c7', '#cdada5', '#c59184',
+    '#bb7565', '#af5946', '#a13c29', '#91170c', '#980b18', '#ab1a34',
+    '#bd2751', '#cf346f', '#df418e', '#f04eae']
 exports.colormap = colors

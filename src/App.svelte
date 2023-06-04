@@ -9,23 +9,6 @@
     // let colormap = nipy_spectral;
     import {colormap} from "./colors.js";
     // calculate colors
-    var colors = colormap
-    function componentToHex(c) {
-      var hex = c.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
-    }
-    function rgbToHex(r, g, b) {
-      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-    }
-    /*
-    for (let counter=0; counter<40; counter++) {
-        let rgb = colormap(counter/40);
-        //console.log('rgb', rgb);
-        let hex = rgbToHex(...rgb);
-        //console.log('hex', hex);
-        colors.push(hex);
-    }
-     */
     let data = [
         [1546300800, 1546387200],    // x-values (timestamps)
         [        35,         15],    // y-values (series 1)
@@ -121,6 +104,9 @@
         var responses = await fetch_ids(host, ids, loading_elt, start_ts, stop_ts);
         loading_message = 'process json data'
         for (const response of responses) {
+            var loading_elt = document.getElementById('message'); 
+            console.log('loading_elt', loading_elt);
+            console.log('loading_elt.innerHTML', loading_elt.innerHTML);
             console.log('process response', response);
             /* 
             // Code to timeout if json conversion fails.
@@ -207,7 +193,8 @@
         }
     }
     $: {
-        console.log('cursor_data', cursor_data);
+        // update table with cursor_data
+        // console.log('cursor_data', cursor_data);
         if (cursor_data.length > 0) { 
             table_data = cursor_data.map(
                 // (x,i)=>  (i>0) ? x[0].toFixed(2) : (new Date(x.toFixed(0)*1000)).toLocaleString()
@@ -369,7 +356,7 @@
     {#if data_ready}
         <Uplot data={data} labels={labels} show={show_curves} colors={colors} bind:cursor_data={cursor_data} />
     {:else}
-        <p id="message">{loading_message} </p>
+        <p id="message"> {loading_message} </p>
         <Loader loading={!data_ready}/>
     {/if}
 </div>
