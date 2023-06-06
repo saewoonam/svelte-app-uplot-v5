@@ -1,6 +1,6 @@
 function merge_time_series(a, b) {
   const compare = (a,b)=>{return a-b;}
-  // console.time("concat unique")
+  console.time("concat unique")
   function uniq(a) {
       var seen = {};
       return a.filter(function(item) {
@@ -8,9 +8,12 @@ function merge_time_series(a, b) {
       });
   }
   // first elements are timestamps... construct merged timestamps
-  var ts = a[0].concat(b[0])
-  ts = uniq(ts)
-  //console.timeEnd("concat unique");
+  // var ts = a[0].concat(b[0])
+  // ts = uniq(ts)
+  var unique_ts = [...new Set([...a[0], ...b[0]])];
+  var ts = Float64Array.from(unique_ts);
+  // console.log(typeof(ts), ts)
+  console.timeEnd("concat unique");
   /*
   console.time('new merge');
   var seen = {}
@@ -20,9 +23,10 @@ function merge_time_series(a, b) {
   console.timeEnd('new merge')
   console.log(ts)
   */
-  // console.time("sort");
+  console.time("sort");
+  // ts.sort(compare);
   ts.sort(compare);
-  // console.timeEnd("sort");
+  console.timeEnd("sort");
   console.time('merge.js')
   function mergewithnull(a, c) {
 

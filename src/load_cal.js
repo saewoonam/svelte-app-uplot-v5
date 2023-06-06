@@ -100,7 +100,7 @@ export class Timeout {
     };
 }
 
-export async function fetch_timeout(url, wait=5000) {
+export async function fetch_timeout(url, wait=7500) {
     const timeout = new Timeout();
     console.log('start fetch');
     // console.time(`fetch ${url}`);

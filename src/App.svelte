@@ -96,6 +96,7 @@
         sensor_list = [...sensor_list, ...lockins_list];
         console.log('full sensor_list', sensor_list);
         let stop_ts = Math.floor(Date.now()/1000)
+        // var start_ts = stop_ts - 60*60;
         var start_ts = stop_ts - 7*24*60*60;
         //start_ts = 0
         var history_v2 = [];
@@ -265,7 +266,19 @@
                 for (var j=0; j<bulk_data.length; j++) {
                     new_data = bulk_data[j];
                     for(var i=0; i<new_data.length; i++) {
-                        data[i].push(new_data[i])
+                        // console.log('push to data', new_data[i], data[i]);
+                        console.log('data[i] is view?', data[i].isView());
+                        if (Array.isArray(data[i])) {
+                            data[i].push(new_data[i])
+                        } else {  // typedArray Float64Array
+                            // console.log('new_data', i, new_data[i]);
+                            if (Array.isArray(new_data[i])) {
+                                data[i] = new Float64Array([...data[i], ...new_data[i]])
+                            } else {
+                                data[i] = new Float64Array([...data[i], new_data[i]])
+                            }
+                        }
+
                     }
                 }
                 data = data;

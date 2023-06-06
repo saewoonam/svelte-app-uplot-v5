@@ -183,6 +183,7 @@
             opts.series[index].label = item; // offset index by 1, index 0: time
             opts.series[index].show = show[index];
             if (item.includes('HEATER')) {
+                // make fill partially transparent
                 opts.series[index].fill = opts.series[index].stroke + '20'
                 console.log(opts.series[index])
                 console.log('item', item)
