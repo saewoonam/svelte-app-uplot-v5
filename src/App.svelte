@@ -31,6 +31,7 @@
     // const module = import('got');
     // import * as got from 'got';
     // console.log('got');
+
     const downsample = lttb.default.processData;
     /*
     // test that lttb is working
@@ -51,10 +52,10 @@
     // let ids = [100];
     // let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
     // let ids = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
-    let ids = [4, 5, 6, 7 ];
+    // let ids = [4, 5, 6, 7 ];
     // let ids = [4, 100, 200, 300, 301];
     // let ids = [300, 301];
-    // let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
+    let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     // let ids = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     var cals;
     var diode_list, compressor_list, heaters_list, lockins_list, sensor_list;
@@ -149,6 +150,7 @@
                     cals[sensor_info[3]](sensor_data.map(x=>x[2])) 
                 ];
             } 
+            console.time('merge');
             if (history_v2.length==0) {
                 // console.log('start history_v2');
                 history_v2 = trace;
@@ -156,6 +158,7 @@
                 // console.log('merge history_v2');
                 history_v2 = merge_data(history_v2, trace);
             }
+            console.timeEnd('merge');
             console.log('merging done for',id, sensor_info[1], sensor_info[3]);
         }
 
@@ -318,7 +321,7 @@
 <style>
 
     .sidebar {
-        height: 90vw;
+        height: 90vh;
         width: 250px;
         position: fixed;
         top: 0;
@@ -357,7 +360,9 @@
         <Uplot data={data} labels={labels} show={show_curves} colors={colors} bind:cursor_data={cursor_data} />
     {:else}
         <p id="message"> {loading_message} </p>
+        <!--
         <Loader loading={!data_ready}/>
+        -->
     {/if}
 </div>
 

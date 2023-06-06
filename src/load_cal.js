@@ -103,7 +103,8 @@ export class Timeout {
 export async function fetch_timeout(url, wait=5000) {
     const timeout = new Timeout();
     console.log('start fetch');
-    console.time(`fetch ${url}`); 
+    // console.time(`fetch ${url}`);
+    console.time(`fetch ${url.split('?')[1]}`);
     var dd = await timeout
         // .wrap(fetch(url), wait, {
         .wrap(ky(url), wait, {
@@ -114,7 +115,8 @@ export async function fetch_timeout(url, wait=5000) {
         })
         .finally(() => {
             timeout.clear(...timeout.ids)
-            console.timeEnd(`fetch ${url}`);
+            // console.timeEnd(`fetch ${url}`);
+            console.timeEnd(`fetch ${url.split('?')[1]}`);
         });
     return dd;
 }
@@ -140,8 +142,9 @@ export async function fetch_ids(host, ids, html_elt, start_ts=0, stop_ts=0, wait
         }
         console.log(id,  'tries', tries);
         // responses.push(response);
+        console.time('wait for json');
         responses.push( await response.json())
-        console.log('pushed json');
+        console.timeEnd('wait for json');
     }
     return responses
 }

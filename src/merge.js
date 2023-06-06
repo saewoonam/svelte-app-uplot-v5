@@ -20,10 +20,10 @@ function merge_time_series(a, b) {
   console.timeEnd('new merge')
   console.log(ts)
   */
-  //console.time("sort");
+  // console.time("sort");
   ts.sort(compare);
-  //console.timeEnd("sort");
-  //console.time('merge')
+  // console.timeEnd("sort");
+  console.time('merge.js')
   function mergewithnull(a, c) {
 
       let hash={}
@@ -37,7 +37,7 @@ function merge_time_series(a, b) {
   
   a = mergewithnull(a, ts)
   b = mergewithnull(b, ts)
-  // console.timeEnd('merge')
+  console.timeEnd('merge.js')
   return [ts, a,b]
 }
 

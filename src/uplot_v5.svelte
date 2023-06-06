@@ -19,23 +19,6 @@
     export let show = [true, true]
     export let colors = ['red', 'blue'];
     export let cursor_data = [];
-    /*
-    var colors = []
-    function componentToHex(c) {
-      var hex = c.toString(16);
-      return hex.length == 1 ? "0" + hex : hex;
-    }
-    function rgbToHex(r, g, b) {
-      return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-    }
-    for (let counter=0; counter<20; counter++) {
-        let rgb = tab20c(counter/20);
-        //console.log('rgb', rgb);
-        let hex = rgbToHex(...rgb);
-        //console.log('hex', hex);
-        colors.push(hex);
-    }
-    */
     let plotDiv;
     // let uPlot;
     let uplot;
@@ -189,7 +172,8 @@
             /* stroke: colors[9-i], */
             /*stroke: colors[(9-i)%15],*/
             stroke: colors[i], 
-            width: 2
+            width: 2,
+            dash: [10, 3, 3, 3, 3, 3],
         })
     }
     opts.series = s;
@@ -283,7 +267,7 @@
         //  Using "batch" more reliably updates the plot
         // updates plot data and scale correctly
         console.log('*************** setManualAxis');
-        console.log('box: ', box);
+        // console.log('box: ', box);
         uplot.batch(() => {
             uplot.setData(data); // this auto zooms and so we need the setScale to undo
             // uplot.setData(data, false); // this does not update as reliably
@@ -317,8 +301,8 @@
             console.log('afterUpdate: setData with auto');
             uplot.setData(data);
         } else if (uplot && !just_finished_toggle_logy) {
-            consoleLogScales( uplot.scales, 'uplot.scales after update');
-            consoleLogScales( opts.scales, 'opt.scales after update');
+            // consoleLogScales( uplot.scales, 'uplot.scales after update');
+            // consoleLogScales( opts.scales, 'opt.scales after update');
             let u = uplot;
             if (u.scales.x.min==null) u.scales = opts.scales;
             let scXMin0 = u.scales.x.min;
