@@ -102,12 +102,12 @@ export class Timeout {
 
 export async function fetch_timeout(url, wait=7500) {
     const timeout = new Timeout();
-    console.log('start fetch');
+    console.log('start fetch, timeout:', wait);
     // console.time(`fetch ${url}`);
     console.time(`fetch ${url.split('?')[1]}`);
     var dd = await timeout
         // .wrap(fetch(url), wait, {
-        .wrap(ky(url), wait, {
+        .wrap(ky(url, {timeout: wait}), wait, {
             reason: 'Fetch timeout',
         })
         .then(async data => {
@@ -134,6 +134,7 @@ export async function fetch_ids(host, ids, html_elt, start_ts=0, stop_ts=0, wait
         var keep_trying = true;
         while ((keep_trying) & (tries<10)) {
             keep_trying = false;
+            console.log('tries:', tries, wait+tries*3000);
             var response = await fetch_timeout(url, wait+tries*3000).catch(data => {
                 console.log('timeout_fetch catch', data);
                 keep_trying = true;

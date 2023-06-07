@@ -3,7 +3,7 @@
     import Table from "./simple_table.svelte";
     import {fetch_ids, Timeout, get_sensor_list, load_calibrations, read_sensor} from "./load_cal.js";
     // import MyCollapse from "./MyCollapse.svelte";
-    import {merge_data} from "./merge.js";
+    import {merge_data} from "./merge_v3.js";
     import Loader from "./Loader.svelte";
     // import {nipy_spectral}  from './js-colormaps-mod.js';
     // let colormap = nipy_spectral;
@@ -267,7 +267,7 @@
                     new_data = bulk_data[j];
                     for(var i=0; i<new_data.length; i++) {
                         // console.log('push to data', new_data[i], data[i]);
-                        console.log('data[i] is view?', data[i].isView());
+                        // console.log('data[i] is view?', data[i].isView());
                         if (Array.isArray(data[i])) {
                             data[i].push(new_data[i])
                         } else {  // typedArray Float64Array
