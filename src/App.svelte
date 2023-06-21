@@ -45,7 +45,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3201';
+    let host = '132.163.53.82:3200';
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -54,8 +54,10 @@
     // let ids = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
     // let ids = [4, 5, 6, 7 ];
     // let ids = [4, 100, 200, 300, 301];
-    // let ids = [300, 301];
-    let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
+    // let ids = [300, 301, 302, 303];
+    let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+        200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300,
+        301, 302, 303, 304, 305, 306];
     // let ids = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     var cals;
     var diode_list, compressor_list, heaters_list, lockins_list, sensor_list;
@@ -72,7 +74,7 @@
         var loading_elt = document.getElementById('message'); 
         console.log(loading_elt);
         console.log('loading sensor lists and calibrations') 
-        var ky_test = await ky('http://132.163.53.82:3201/database/log.db/compressor_list').json()
+        var ky_test = await ky('http://132.163.53.82:3200/database/log.db/compressor_list').json()
         console.log(ky_test);
         loading_message = 'loading calibrations'
         cals = await load_calibrations(host);
