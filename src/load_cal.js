@@ -134,14 +134,14 @@ export async function fetch_ids(host, ids, html_elt, start_ts=0, stop_ts=0, wait
         var keep_trying = true;
         while ((keep_trying) & (tries<10)) {
             keep_trying = false;
-            console.log('tries:', tries, wait+tries*3000);
+            console.log('attempt:', tries, wait+tries*3000);
             var response = await fetch_timeout(url, wait+tries*3000).catch(data => {
                 console.log('timeout_fetch catch', data);
                 keep_trying = true;
             });
             ++tries;
         }
-        console.log(id,  'tries', tries);
+        console.log(id,  'success attempt', tries);
         // responses.push(response);
         console.time('wait for json');
         responses.push( await response.json())

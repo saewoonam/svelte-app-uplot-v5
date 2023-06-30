@@ -16,6 +16,8 @@
     ];
     let count = 0;
     let cursor_data = [];
+    var repeat;
+
     /*
     let data_ready = true;
     let table_data = [0, 1, 2];
@@ -45,7 +47,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3200';
+    let host = '132.163.53.82:3200';  // database for loading initial data
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -54,10 +56,13 @@
     // let ids = [100, 101, 102, 103, 104, 105, 106, 107, 108, 109];
     // let ids = [4, 5, 6, 7 ];
     // let ids = [4, 100, 200, 300, 301];
-    // let ids = [300, 301, 302, 303];
+    // ids = [300, 301, 302, 303];
     let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
-        200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300,
+        202,  206, 210, 214, 216, 217, 218, 219, 220, 300,
         301, 302, 303, 304, 305, 306];
+    // let ids = [4, 5, 6, 7, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+    //     200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300,
+    //    301, 302, 303, 304, 305, 306];
     // let ids = [ 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 200, 201, 204, 205, 208, 209, 212, 213, 216, 217, 218, 219, 220, 300, 301, 303, 304, 305, 306];
     var cals;
     var diode_list, compressor_list, heaters_list, lockins_list, sensor_list;
@@ -74,7 +79,7 @@
         var loading_elt = document.getElementById('message'); 
         console.log(loading_elt);
         console.log('loading sensor lists and calibrations') 
-        var ky_test = await ky('http://132.163.53.82:3200/database/log.db/compressor_list').json()
+        var ky_test = await ky(`http://${host}/database/log.db/compressor_list`).json()
         console.log(ky_test);
         loading_message = 'loading calibrations'
         cals = await load_calibrations(host);
@@ -185,7 +190,7 @@
             (x,i)=>  (i>0) ? (Array.isArray(x) ? x[0].toFixed(2): x.toFixed(2)): (new Date(x.toFixed(0)*1000)).toLocaleString()
         );
         
-        setInterval( append, 10000);
+        repeat = setInterval( append, 10000);
 
     });
     $: { 
@@ -226,33 +231,42 @@
         bulk_url = url_prefix + query;
         console.log('bulk_url', bulk_url);
         var bulk_json = await fetch(bulk_url).then(response => response.json())
-        bulk_json = bulk_json['data'];
-        var bulk_ts = Array.from(new Set(bulk_json.map(x=>x[0])));
-        console.log('bulk download', bulk_json.length, bulk_ts);
-        for (const ts of bulk_ts) {
-            var one_ts = bulk_json.filter(x => x[0]==ts);
-            last_ts = ts;
-            // console.log(ts, one_ts);
-            if(ids.every(x => one_ts.map(x=>x[1]).includes(x))) {
-                new_data = [ts];
-                for (const id of ids) {
-                    let sensor_info = sensor_list.find(elt => elt[0]==id);
-                    var reading = one_ts.filter(x => x[1] == id);
-                    reading = reading[0][2];
-                    // console.log(id, reading);
-                    reading = Array.isArray(reading) ? reading[0]: reading;
-                    var converted = cals[sensor_info[3]](reading);
-                    converted = Array.isArray(converted) ? converted[0]: converted;
-                    new_data.push(converted);
+        if (bulk_json !== undefined) { 
+            bulk_json = bulk_json['data'];
+            if (bulk_json !== undefined) { 
+                var bulk_ts = Array.from(new Set(bulk_json.map(x=>x[0])));
+                console.log('bulk download', bulk_json.length, bulk_ts);
+                for (const ts of bulk_ts) {
+                    var one_ts = bulk_json.filter(x => x[0]==ts);
+                    last_ts = ts;
+                    // console.log('ts of bulk_ts:', ts)
+                    // console.log(ts, one_ts);
+                    //console.log(ids.every(x=>one_ts.map(x=>x[1]))); // .includes(x)));
+                    // console.log(ids)
+                    // console.log('one_ts map to ids', one_ts.map(x=>x[1]));
+                    if(ids.every(x => one_ts.map(x=>x[1]).includes(x))) {
+                        new_data = [ts];
+                        for (const id of ids) {
+                            let sensor_info = sensor_list.find(elt => elt[0]==id);
+                            var reading = one_ts.filter(x => x[1] == id);
+                            reading = reading[0][2];
+                            // console.log(id, reading);
+                            reading = Array.isArray(reading) ? reading[0]: reading;
+                            var converted = cals[sensor_info[3]](reading);
+                            converted = Array.isArray(converted) ? converted[0]: converted;
+                            new_data.push(converted);
+                        }
+                        bulk_data.push(new_data);
+                        console.log('bulk new_data', new_data);
+                    }
                 }
-                bulk_data.push(new_data);
-                // console.log('bulk new_data', new_data);
             }
         }
         console.log('bulk_data', bulk_data);
         return bulk_data;
     }
     async function append() {
+        clearInterval(repeat);
         // var catchup = true;
         // while (catchup & (appending==false) ) {
         if (true) {
@@ -297,7 +311,7 @@
             // appending = false;
             // catchup = false;
         }
-
+        repeat = setInterval( append, 10000);
     }
     function tableClick(e) {
         console.log('tableClick', e.detail);
