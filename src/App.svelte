@@ -47,7 +47,7 @@
     var labels;
     var show_curves = [true]
 
-    let host = '132.163.53.82:3200';  // database for loading initial data
+    let host = '132.163.53.82:3201';  // database for loading initial data
     var loading_message = 'Loading';
     let fetchEvent = new Event('fetch');
 
@@ -106,6 +106,11 @@
         // var start_ts = stop_ts - 60*60;
         var start_ts = stop_ts - 7*24*60*60;
         //start_ts = 0
+        var earliest_ts = new Date("2023-07-12, 00:00:00 MDT").getTime()/1000
+        console.log('start_ts', start_ts);
+        console.log('stop_ts', stop_ts);
+        console.log('earliest_ts', earliest_ts);
+        start_ts = (earliest_ts > start_ts) ? earliest_ts : start_ts;
         var history_v2 = [];
         labels=['TIME'];        
         loading_message = 'loading data'
@@ -225,7 +230,7 @@
         let bulk_data = [];
         let new_data = [];
         let bulk_url;
-        let url_prefix ='http://132.163.53.82:3200/database/log.db/'
+        let url_prefix ='http://132.163.53.82:3201/database/log.db/'
         let query = '';
         query = (stop===null) ?  `data?start=${start}`:`start=${start}&stop=${stop}`;
         bulk_url = url_prefix + query;

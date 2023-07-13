@@ -36,18 +36,18 @@
     opts.scales.y.auto = ()=> {return autoy}
     //console.log(opts.scales.y.range);
     opts.scales.x.range = (self, min, max) => {
-        console.log('******************* x.range function');
-        console.log('called with min, max:', min, max);
+        // console.log('******************* x.range function');
+        // console.log('called with min, max:', min, max);
         min = min==null ? min : parseFloat(min);
         max = max==null ? max : parseFloat(max);
         x_range = [min, max];
-        console.log('returned x_range: ', x_range);
+        // console.log('returned x_range: ', x_range);
         // console.trace()
         return x_range
     }
     opts.scales.y.range = (self, min, max) => {
-        console.log('******************* y.range function');
-        console.log('called with min, max:', min, max);
+        // console.log('******************* y.range function');
+        // console.log('called with min, max:', min, max);
         // min = min==null ? min : parseFloat(min);
         // max = max==null ? max : parseFloat(max);
         y_range = [min, max];
@@ -69,7 +69,7 @@
             }
 
         } else y_range = [min, max];
-        console.log('returned y_range: ', y_range);
+        // console.log('returned y_range: ', y_range);
         // console.trace()
         return y_range
     }
@@ -144,17 +144,17 @@
                     autox = false;
                     autoy = false;
                 }
-                console.log('mousemove button', e.button, 'buttons', e.buttons, 'shiftKey', e.shiftKey);
-                consoleLogScales(uplot.scales, 'in mouse move uplot.scales');
+                // console.log('mousemove button', e.button, 'buttons', e.buttons, 'shiftKey', e.shiftKey);
+                // consoleLogScales(uplot.scales, 'in mouse move uplot.scales');
                 const { left, top } = u.cursor;
-                console.log('mousemove: left, top', left, top);
+                // console.log('mousemove: left, top', left, top);
                 let xVal = u.posToVal(left, "x");
                 let yVal = u.posToVal(top, "y");
-                console.log('mousemove: xVal, yVal', xVal, yVal);
-                console.log('uplot_v5.svelte: u.curosr', u.cursor); 
-                console.log('uplot_v5.svelte: u', u); 
+                // console.log('mousemove: xVal, yVal', xVal, yVal);
+                // console.log('uplot_v5.svelte: u.curosr', u.cursor); 
+                // console.log('uplot_v5.svelte: u', u); 
             } else {
-                console.log('no click on mouse move');
+                // console.log('no click on mouse move');
                 const { left, top } = u.cursor;
                 const idx = u.posToIdx(left);
                 cursor_data = u.data.map((element) => element[idx]);
@@ -267,7 +267,7 @@
         // -----------
         //  Using "batch" more reliably updates the plot
         // updates plot data and scale correctly
-        console.log('*************** setManualAxis');
+        // console.log('*************** setManualAxis');
         // console.log('box: ', box);
         uplot.batch(() => {
             uplot.setData(data); // this auto zooms and so we need the setScale to undo
@@ -295,11 +295,11 @@
         console.log(header + ' ymin, ymax', scales.y.min, scales.y.max);
     }
     afterUpdate( ()=> {
-        console.log('afterUpdate data[0].length', data[0].length)
-        console.log('just_finished_toggle_logy', just_finished_toggle_logy);
+        // console.log('afterUpdate data[0].length', data[0].length)
+        // console.log('just_finished_toggle_logy', just_finished_toggle_logy);
         if(uplot && autox && autoy) { 
             // console.log('no setData here, commented out');
-            console.log('afterUpdate: setData with auto');
+            // console.log('afterUpdate: setData with auto');
             uplot.setData(data);
         } else if (uplot && !just_finished_toggle_logy) {
             // consoleLogScales( uplot.scales, 'uplot.scales after update');
@@ -509,6 +509,7 @@ button {
         <button on:click={resetAxis}>
             <SvgIcon d={home} />
         </button>
+        <!--
         <button on:click={toggle_logy}>
             {#if logy==3}
                 <LinIcon />
@@ -516,6 +517,7 @@ button {
                 <LogIcon />
             {/if}
         </button>
+        -->
         <button on:click={saveCanvas}>
             <SvgIcon d={png} />
         </button>

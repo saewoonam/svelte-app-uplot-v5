@@ -9,6 +9,7 @@
     export let show = [true, true];
     function onClickRow (e) {
         console.log('clicked on row', e.srcElement.parentElement.id);
+        console.log('clicked on row, e.detail', e.detail);
         dispatch('click', {label: e.srcElement.parentElement.id});
     }
     // table tbody {height:600px; overflow-y:scroll; display:block;} 
